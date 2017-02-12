@@ -29,8 +29,8 @@ object HTMLTranslator extends JavaTokenParsers {
 	def bolded :Parser[String] = "**" ~> lineFormatted <~"**" ^^ {case strings => "<strong>"+strings+"</strong>"}
 	def emed :Parser[String] = "_" ~> lineFormatted <~ "_" ^^ {case strings => "<em>"+strings+"</em>"}
 	def coded :Parser[String] = "'" ~> lineFormatted <~ "'" ^^{case strings => "<code>"+strings+"</code>"}
-	def text :Parser[String] = """[^-,',_,*,\n]""".r ^^ {_.toString()}
-	def endLine :Parser[String] = "---" ^^ {_ => "</hr>"} 
+	def text :Parser[String] = """[^-'_*\n]""".r ^^ {_.toString()}
+	def endLine :Parser[String] = "---" ^^ {_ => "</hr>"}
 	def paragraph :Parser[String] = text ~ lineFormatted ^^ {case first ~ second => "<p>"+first+second+"</p>" }
 	def lineWithoutHead :Parser[String] = rep(bolded | emed | coded | text ) ^^ {_.mkString}
 
@@ -38,7 +38,7 @@ object HTMLTranslator extends JavaTokenParsers {
 		args.foreach {
 			fileName => {
 				val input=scala.io.Source.fromFile(fileName)
-				val source=input.mkString	
+				val source=input.mkString
 				this.parseAll(this.document,source) match {
 					case this.Success(result,_) => println(result)
 					case r => println("errore nel parsing: "+r)
