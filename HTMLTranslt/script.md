@@ -1,7 +1,7 @@
 ** bolded **
 ciaone _ emed _
 ' coded '
-### headed livello 3  ## non può essere head questo
+### headed ,livello 3  ## non può essere head questo
 ## headed livello 2 **ciao**
 # headed livello 1
 ---
@@ -10,7 +10,7 @@ ciaone _ emed _
 ** ## nohead **
 listina
 
-* primo
+* primo ciaociao,
 * secondo
 * terzo
 1. ciao
